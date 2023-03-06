@@ -4,6 +4,8 @@ const colorDefecto = "Blanco";
 const consumoDefecto = "F";
 const pesoBaseDefecto = "5 Kg";
 
+const cargaLavadora = "5 kg";
+
 class Electrodomestico{
 
     constructor(precioBase=precioDefecto, color = colorDefecto, consumoEnergetico = consumoDefecto,
@@ -58,7 +60,7 @@ class Electrodomestico{
             }   
         }
     }
-
+    /* Funcion pasa toda la cadena a minisculas excepto la primera letra*/
     funcionControlString(cadena){
         if (isNaN(cadena)){
             let newcadena = cadena;
@@ -67,15 +69,75 @@ class Electrodomestico{
         }else{
             return console.log("Ha introducido un dato numérico en un campo de texto que no corresponde, revise las inforamción introducida.");
         }
-    }   
+    }
+
+    controlTramoPeso(newpeso){
+
+        let tramoPeso = 0;
+
+       if(newpeso <=19){
+            tramoPeso = "tramo1";
+       }else if(newPeso >=20 && newPeso <=49){
+            tramoPeso = "tramo2";
+       }else if(newPeso >=50 && newPeso <=79){
+            tramoPeso = "tramo3";
+       }else if(newPeso >=80){
+            tramoPeso = "tramo4";
+       }
+
+       return tramoPeso
+    }
     
-    /*resumenElectrodomestico(){
-        console.log(`Estos son los datos: Precio: ${this.precioBase}, color: ${this.color},
-         Consumo: ${this.consumoEnergetico}, Peso: ${this.peso}`);
+
+    precioFinal(newconsumo, newPeso){
+
+        let calculoConsumo = {
+            A:"100",
+            B:"80",
+            C:"60",
+            D:"50",
+            E:"30",
+            F:"10"
+        }
+
+        let calculoPeso = {
+            "tramo1":"10",
+            "tramo2":"50",
+            "tramo3":"80",
+            "tramo4":"100"
+        }
+
+        
+        return Number(calculoConsumo[newconsumo]) + Number(calculoPeso[newPeso]);
+
+    }
+
+
     
-    }*/
 }
 
-let lavadora = new Electrodomestico(200, "blanco","h", "100 kg");
+class Lavadora extends Electrodomestico{
 
-console.log(lavadora);
+    constructor(precioBase, color, consumoEnergetico,
+        peso, carga = cargaLavadora){
+        super(precioBase, color, consumoEnergetico, peso)
+
+        this.carga = carga;
+    }
+
+    get obtieneCarga(){
+        return this.carga;
+    }
+
+    precioFinal(newconsumo, newcarga){
+    
+        if(newcarga>30){
+           return console.log( (super.precioFinal(super.funcionControlString(newconsumo), super.controlTramoPeso(this.peso)) + 50) + " €");
+        }
+       
+    }
+
+
+}
+
+let bosch = new Lavadora(100, "blanco", "F", 10, 5);
