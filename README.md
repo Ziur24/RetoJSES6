@@ -32,7 +32,7 @@ El ejercicio se compone de las clases:
 
 ## <img src="./images/retro.png" width="40"> Tecnología utilizada ## 
 
-El proyecto está realizado exclisivamente con JavaScript. 
+El proyecto está realizado exclusivamente con JavaScript. 
 
 <img src="./images/js.png" width="30">
 
